@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Try It Yourself</title>
+</head>
+<body>
+  <label> Choose a fruit
+    <select id="fruits" onchange="checkPrice()">
+      <option value="apple"> apple </option>
+      <option value="banana"> banana </option>
+      <option value="cherry"> cherry </option>
+      <option value="mango"> mango </option>
+      <option value="orange"> orange </option>
+      <option value="strawberry"> strawberry </option>
+    </select>
+  </label>
+  <p id="price"></p>
+
+  <script type="text/javascript">
+    function checkPrice() {
+      const fruit = document.getElementById("fruits").value;
+      let amount;
+    
+      switch (fruit) {
+        case "apple":
+          amount = "$1.92"
+          document.getElementById("price").innerHTML = "The price of " + fruit + " is " + amount;
+          break;
+        case "banana":
+          amount = "$2.32"
+          document.getElementById("price").innerHTML = "The price of " + fruit + " is " + amount;
+          break;
+        case "mango":
+          amount = "$3.11"
+          document.getElementById("price").innerHTML = "The price of " + fruit + " is " + amount;
+          break;
+        case "orange":
+          amount = "$2.87"
+          document.getElementById("price").innerHTML = "The price of " + fruit + " is " + amount;
+          break;
+        default:
+          document.getElementById("price").innerHTML = "Sorry for the inconveniences, " + fruit + " is currently not available.";
+      }
+    }
+  </script>
+</body>
+</html>

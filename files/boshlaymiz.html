@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body{
+                background: #333;
+            }
+            h1{
+                text-align: center;
+            }
+            select{
+                background: #555;
+                padding: 10px;
+                border-radius: 20px;
+            }
+            option{
+                border-radius: 15px;
+                gap: 20px;
+            }
+            .bx{
+                background: #666;
+                display: none;
+                padding: 20px;
+                margin: 10px;
+                gap: 10px;
+                border-radius: 100px;
+                width: 500px;
+            }
+            a{
+                color: black;
+                
+                
+            }
+            button{
+                padding: 10px;
+                margin: 10px;
+                border-radius: 20px;
+                background: #222;
+                 color: #444;
+                 cursor: pointer;
+                 
+            }
+            nav{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            h3{
+                margin-left: 40px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Boshladik</h1>
+       <h2 style="margin-left: 20px;">   Bizning hizmatlar :
+          <ul>
+               <li> <a href="#" onclick="hizmat1();">Hizmat 1</a></li>
+               <li> <a href="#" onclick="hizmat2();">Hizmat 2</a></li>
+               <li> <a href="#" onclick="hizmat3();">Hizmat 3</a></li>
+          </ul>
+        </h2>
+       
+
+            <div id="hiz1" class="bx"><h3>Hizmat 1
+                <p>vevkevmermbmb...</p>
+            </h3>
+           <div style="
+           display: flex;
+                justify-content: right;
+                align-items: right;">
+                <button onclick="close1();">close</button></div>
+        </div>
+           <div id="hiz2" class="bx"> <h3>Hizmat 2
+                <p>eqfermkferfkm...</p>
+            </h3>
+             <div style="
+             display: flex;
+                justify-content: right;
+                align-items: right;">
+                <button onclick="close2();">close</button></div>
+            </div>
+           <div id="hiz3" class="bx"> <h3>Hizmat 3
+                <p>efkmergmgg...</p>
+            </h3>
+              <div style="
+              display: flex;
+                justify-content: right;
+                align-items: right;">
+                <button onclick="close3();">close</button></div>
+            </div>
+            <a href="../доп, файлы/davom etamiz.html" style="cursor:default ;" ><button>Davom etamiz </button></a>
+            <a href="/../tekshiruv dars21.html" style="cursor: default;"><button>Back</button></a>
+ <a href="/../tekshiruv dars21.html" style="cursor: default;"><button>Home</button></a>
+
+
+  <label> Choose a fruit
+    <select id="fruits" onchange="checkPrice()">
+      <option value="apple"> apple </option>
+      <option value="banana"> banana </option>
+      <option value="cherry"> cherry </option>
+      <option value="mango"> mango </option>
+      <option value="orange"> orange </option>
+      <option value="strawberry"> strawberry </option>
+    </select>
+  </label>
+  <p id="price"></p>
+   
+        <script type="text/javascript">
+            function hideAll(){
+                document.getElementById("hiz1").style.display ="none";
+                document.getElementById("hiz2").style.display ="none";
+                document.getElementById("hiz3").style.display ="none";
+            }  
+
+            function  hizmat1(){
+                document.getElementById("hiz1").style.display ="block"
+            }
+             function  hizmat2(){
+                document.getElementById("hiz2").style.display ="block"
+            }
+             function  hizmat3(){
+                document.getElementById("hiz3").style.display ="block"
+            }
+            function close1(){
+                document.getElementById("hiz1").style.display ="none"
+            }
+             function close2(){
+                document.getElementById("hiz2").style.display ="none"
+            }
+             function close3(){
+                document.getElementById("hiz3").style.display ="none"
+            }
+
+            function checkPrice() {
+      const fruit = document.getElementById("fruits").value;
+      let amount;
+    
+      switch (fruit) {
+        case "apple":
+          amount = "$1.92"
+          document.getElementById("price").innerHTML = "The price of " + fruit + " is " + amount;
+          break;
+        case "banana":
+          amount = "$2.32"
+          document.getElementById("price").innerHTML = "The price of " + fruit + " is " + amount;
+          break;
+        case "mango":
+          amount = "$3.11"
+          document.getElementById("price").innerHTML = "The price of " + fruit + " is " + amount;
+          break;
+        case "orange":
+          amount = "$2.87"
+          document.getElementById("hiz3").style.display ="block"
+          break;
+        default:
+          document.getElementById("price").innerHTML = "Sorry for the inconveniences, " + fruit + " is currently not available.";
+      }
+    }  
+        </script>
+
+       
+       
+    </body>
+</html>
