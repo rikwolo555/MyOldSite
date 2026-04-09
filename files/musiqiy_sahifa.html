@@ -20,10 +20,44 @@
             a{
                 cursor: default;
             }
+
+          
+    .player-container {
+        background: #2c3e50; /* Темный цвет фона */
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        width: 300px;
+        margin: 20px auto;
+        text-align: center;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    .player-container h3 {
+        margin-top: 0;
+        font-size: 18px;
+    }
+
+    audio {
+        width: 100%;
+        height: 40px;
+        filter: invert(100%) hue-rotate(180deg) brightness(1.5); /* Делает плеер светлым под стиль */
+    }
+
         </style>
     </head>
     <body>
         <h1>Musiqiy sahifa</h1>
+
+        <div class="player-container">
+    <h3>🎵 Mortals (funk)/h3>
+    <p>Исполнитель</p>
+    <audio controls>
+        <source src="../mp3.2/Warriyo - Mortals (Funk (Slowed)) (1).mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио.
+    </audio>
+</div>
       
         <audio src="../mp3/Rakhim_-_Fendi.mp3" controls>Rakhim - Fendi</audio>
         <br>
