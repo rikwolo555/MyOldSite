@@ -36,23 +36,58 @@
           
     .player-container {
 
-        transition:all 0.3s ease ; /*плавность*/
+      /*  transition:all 0.3s ease ;*/ /*плавность*/
         
-        background:#222; /* то самое размытие фона */
+        background:#2b2b2b; /* то самое размытие фона */
 
        -webkit-backdrop-filter:blur(10px);  /*поддержка для Safari*/
-        border:1px solid rgba(255,255,255,0.1); /*тонкая светлая рамка*/ 
+       /* border:1px solid rgba(255,255,255,0.1); *//*тонкая светлая рамка*/ 
         
-        padding: 20px;
-        border-radius: 20px; /*сделаем углы чуть более округлыми*/
-        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        width: 350px;
-        margin: 20px auto;
-        text-align: center;
+        padding: 15px;
+        border-radius: 15px; /*сделаем углы чуть более округлыми*/
+        /*box-shadow: 0 8px 32px rgba(0,0,0,0.3);*/
+        /* width: 350px; */
+        margin-bottom: 20px ;
         
-        color: white;
-        font-family: Arial, sans-serif;
+            /*  color: white;
+        font-family: Arial, sans-serif;*/
     }
+            .play-btn, pause-btn{
+                background: #444;
+                color:white;
+                border:none;
+                padding:8px 15px;
+                border-radius:8px;
+                cursor:pointer;
+                margin-right:5px;
+            }
+
+            .play-btn:hover{
+                background:#555;
+            }
+
+            .progress-bg{
+                flex-grow:1;
+                height:8px;
+                background:#1a1a1a;
+                border-radius:4px;
+                margin-left:10px;
+                position:relative;
+                align-self:center;
+            }
+
+            .progress-fill{
+                width:0%;
+                height:100%;
+                background:#007aff;
+                border-radius:4px;
+            }
+
+            .controls-row{
+                display:flex;
+                align-items:center;
+                margin-top:10px;
+            }
 
             .player-container p {
                 font-size:14px;
@@ -82,7 +117,7 @@
         <div class="player-container">
     <h3>🎵 Fendi</h3>
     <p>Исполнитель</p>
-    <audio controls>
+    <audio >
         <source src="../mp3/Rakhim_-_Fendi.mp3" type="audio/mpeg">
         Ваш браузер не поддерживает аудио.
     </audio>
@@ -145,10 +180,19 @@
         <div class="player-container">
     <h3>🎵 Никотин </h3>
     <p>Ганвест</p>
-    <audio controls>
+
+            <div class="custom-audio-wrapper">
+    <audio id="audio1" >
         <source src="../mp3.2/Ганвест - Никотин (Offical video).mp3" type="audio/mpeg">
         Ваш браузер не поддерживает аудио.
     </audio>
+              <div class="controls-row">
+              <button onclick="document.getElementById('audio1').play()" class="play-btn">+</button>
+                  <button onclick="document.getElementById('audio1').pause()" class="pause-btn">-</button>
+                  <div class="progress-bg"><div id="progress1" class="progress-fill"></div>
+                  </div>
+              </div>
+              </div>
 </div>
   
         <div class="player-container">
