@@ -28,87 +28,52 @@
                 cursor: default;
             }
 
-         .player-container:hover{
-             background:rgba(255,255,255,0.12); /*чуть больше яркости*/
-             transform:translateY(-5px); /*слегка приподнимается*/
-             box-shadow:0 15px 35px rgba(0,0,0,0.5);
-         }   
+            /* Контейнер плеера */
+.player-container {
+    background: #2b2b2b; /* Темный фон как на скрине */
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
 
-          
-    .player-container {
+/* Стили кнопок */
+.play-btn, .pause-btn {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 5px;
+}
 
-      /*  transition:all 0.3s ease ;*/ /*плавность*/
-        
-        background:#2b2b2b; /* то самое размытие фона */
+.play-btn:hover { background: #555; }
 
-       -webkit-backdrop-filter:blur(10px);  /*поддержка для Safari*/
-       /* border:1px solid rgba(255,255,255,0.1); *//*тонкая светлая рамка*/ 
-        
-        padding: 15px;
-        border-radius: 15px; /*сделаем углы чуть более округлыми*/
-        /*box-shadow: 0 8px 32px rgba(0,0,0,0.3);*/
-        /* width: 350px; */
-        margin-bottom: 20px ;
-        
-            /*  color: white;
-        font-family: Arial, sans-serif;*/
-    }
-             .pause-btn{
-                background: #111;
-                color:white;
-                border:none;
-                  height:16px;
-                width:16px;
-                padding:8px 15px;
-                border-radius:8px;
-                cursor:pointer;
-                margin-right:5px;
-            }
+/* Полоска прогресса */
+.progress-bg {
+    flex-grow: 1;
+    height: 8px;
+    background: #1a1a1a;
+    border-radius: 4px;
+    margin-left: 10px;
+    position: relative;
+    align-self: center;
+}
 
-            .play-btn{
-                background: #111;
-                color:white;
-                border:none;
-                height:16px;
-                width:16px;
-                padding:8px 15px;
-                border-radius:8px;
-                cursor:pointer;
-                margin-right:5px;
-            }
+.progress-fill {
+    width: 0%; /* Будет расти при проигрывании */
+    height: 100%;
+    background: #007aff; /* Синий цвет акцента */
+    border-radius: 4px;
+}
 
-            .play-btn:hover{
-                background:#222;
-            }
+.controls-row {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
 
-             .pause-btn:hover{
-                background:#222;
-            }
-
-            .progress-bg{
-                flex-grow:1;
-                height:8px;
-                background:#1a1a1a;
-                border-radius:4px;
-                margin-left:10px;
-                position:relative;
-                align-self:center;
-            }
-
-            .progress-fill{
-                width:0%;
-                height:100%;
-                background:#007aff;
-                border-radius:4px;
-            }
-
-            .controls-row{
-                display:flex;
-                align-items:center;
-                margin-top:10px;
-            }
-
-            .player-container p {
+                  .player-container p {
                 font-size:14px;
                 opacity:0.7;
                 margin-bottom:5px;
@@ -131,6 +96,25 @@
     </head>
     <body>
         <h1>Musiqiy sahifa</h1>
+
+        <div class="player-container">
+    <h3>🎵 Никотин</h3>
+    <p>Ганвест</p>
+    
+    <div class="custom-audio-wrapper">
+        <audio id="audio1">
+            <source src="../mp3.2/Ганвест - Никотин.mp3">
+        </audio>
+        
+        <div class="controls-row">
+            <button onclick="document.getElementById('audio1').play()" class="play-btn">▶</button>
+            <button onclick="document.getElementById('audio1').pause()" class="pause-btn">||</button>
+            <div class="progress-bg">
+                <div id="progress1" class="progress-fill"></div>
+            </div>
+        </div>
+    </div>
+</div>
           
 
       
