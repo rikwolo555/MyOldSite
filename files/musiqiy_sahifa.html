@@ -112,10 +112,10 @@ border-radius: 50%; /* Идеальный круг */
         <div class="controls-row">
             <button onclick="document.getElementById('audio1').play()" class="play-btn">▶</button>
             <button onclick="document.getElementById('audio1').pause()" class="pause-btn">||</button>
-            <div class="progress-bg">
-                <div id="progress1" class="progress-fill"
-                    style="width:50%; height:8px; background:#007aff; border-radius:4px;"></div>
-            </div>
+              <div class="progress-bg" style="flex-grow: 1; height: 8px; background: rgba(255,255,255,0.1); margin-left: 10px; border-radius: 4px; position: relative;">
+    <div id="progress1" class="progress-fill" style="width: 50%; height: 100%; background: #007aff; border-radius: 4px;"></div>
+</div> 
+        </div>
         </div>
     </div>
 </div>
