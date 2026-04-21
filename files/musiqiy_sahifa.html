@@ -151,12 +151,13 @@ border-radius: 50%; /* Идеальный круг */
     const progressBar = document.getElementById('progress1');
 
     // Эта функция заставляет синюю полоску расти
-    audio.ontimeupdate = function() {
-        if (audio.duration) {
-            const percentage = (audio.currentTime / audio.duration) * 100;
-            progressBar.style.width = percentage + '%';
-        }
-    };
+     audio.ontimeupdate = function() {
+    if (audio.duration) {
+        const percentage = (audio.currentTime / audio.duration) * 100;
+        progressBar.style.width = percentage + '%';
+    }
+};
+            };
 </script>
    
     </body>
