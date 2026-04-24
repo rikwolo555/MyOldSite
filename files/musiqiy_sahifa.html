@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Musiqiy sahifa — Premium</title>
+    <title>Musiqiy sahifa — Pro</title>
     <style>
         :root {
             --primary-color: #3b82f6;
@@ -15,19 +15,40 @@
 
         body {
             background-color: var(--bg-color);
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             margin: 0;
             padding: 40px 20px;
-            color: var(--text-main);
         }
 
-        h1 {
-            text-align: center;
-            font-size: 2.5rem;
+        h1 { text-align: center; color: #0f172a; margin-bottom: 30px; }
+
+        /* Панель фильтров */
+        .filter-panel {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
             margin-bottom: 40px;
-            color: #0f172a;
+            flex-wrap: wrap;
         }
 
+        .filter-btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Сетка */
         .main-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -41,134 +62,88 @@
             border-radius: 20px;
             padding: 24px;
             border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
+            transition: all 0.3s;
         }
 
-        .player-container:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
-            border-color: var(--primary-color);
-        }
-
-        .track-info h3 { margin: 0; font-size: 1.25rem; }
-        .track-info p { margin: 4px 0 20px 0; color: var(--text-secondary); font-size: 0.9rem; }
+        .player-container.hidden { display: none; }
 
         .custom-controls {
             background: #f1f5f9;
             padding: 15px;
             border-radius: 15px;
-            margin-bottom: 15px;
+            margin: 15px 0;
         }
 
         .top-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
 
         .play-pause-btn {
             background: var(--primary-color);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center; justify-content: center;
+            color: white; border: none;
+            width: 40px; height: 40px;
+            border-radius: 50%; cursor: pointer;
         }
 
-        .progress-area {
-            flex-grow: 1;
-            height: 6px;
-            background: #cbd5e1;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: var(--primary-color);
-            border-radius: 10px;
-        }
-
-        .time-display {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
+        .progress-area { flex-grow: 1; height: 6px; background: #cbd5e1; border-radius: 10px; cursor: pointer; }
+        .progress-bar { height: 100%; width: 0%; background: var(--primary-color); border-radius: 10px; }
 
         .fav-btn {
-            width: 100%;
-            background: transparent;
-            border: 2px solid #e2e8f0;
-            color: var(--text-main);
-            padding: 10px;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
+            width: 100%; background: transparent;
+            border: 2px solid #e2e8f0; padding: 10px;
+            border-radius: 10px; font-weight: 600; cursor: pointer;
         }
 
-        .fav-btn.active {
-            background: #fee2e2;
-            border-color: #ef4444;
-            color: #ef4444;
-        }
+        .fav-btn.active { background: #fee2e2; border-color: #ef4444; color: #ef4444; }
     </style>
 </head>
 <body>
 
     <h1>Musiqiy sahifa</h1>
 
+    <div class="filter-panel">
+        <button class="filter-btn active" onclick="filterTracks('all', this)">Все</button>
+        <button class="filter-btn" onclick="filterTracks('fav', this)">❤️ Избранное</button>
+        <button class="filter-btn" onclick="filterTracks('recent', this)">🕒 Последние</button>
+    </div>
+
     <div class="main-grid">
         <div class="player-container" data-id="track_1">
-            <div class="track-info">
-                <h3>Fendi</h3>
-                <p>Rakhim</p>
-            </div>
+            <div class="track-info"><h3>Fendi</h3><p>Rakhim</p></div>
             <div class="custom-controls">
                 <audio class="audio-element"><source src="../mp3/Rakhim_-_Fendi.mp3" type="audio/mpeg"></audio>
                 <div class="top-row">
                     <button class="play-pause-btn">▶</button>
                     <div class="progress-area"><div class="progress-bar"></div></div>
                 </div>
-                <div class="time-display"><span class="current">0:00</span><span class="duration">0:00</span></div>
             </div>
             <button class="fav-btn" onclick="toggleFav(this)">❤ В избранное</button>
         </div>
 
         <div class="player-container" data-id="track_2">
-            <div class="track-info">
-                <h3>Mortals (slowed)</h3>
-                <p>Warriyo</p>
-            </div>
+            <div class="track-info"><h3>Mortals (slowed)</h3><p>Warriyo</p></div>
             <div class="custom-controls">
                 <audio class="audio-element"><source src="../mp3.2/Warriyo - Mortals (ft. Laura Brehm) (Slowed).mp3" type="audio/mpeg"></audio>
                 <div class="top-row">
                     <button class="play-pause-btn">▶</button>
                     <div class="progress-area"><div class="progress-bar"></div></div>
                 </div>
-                <div class="time-display"><span class="current">0:00</span><span class="duration">0:00</span></div>
             </div>
             <button class="fav-btn" onclick="toggleFav(this)">❤ В избранное</button>
         </div>
-    </div>
+        
+        </div>
 
     <script>
-        // 1. Инициализация плееров
+        const RECENT_KEY = 'recent_played';
+
         document.querySelectorAll('.player-container').forEach(container => {
             const audio = container.querySelector('.audio-element');
             const playBtn = container.querySelector('.play-pause-btn');
             const progressBar = container.querySelector('.progress-bar');
             const progressArea = container.querySelector('.progress-area');
-            const currentTxt = container.querySelector('.current');
-            const durationTxt = container.querySelector('.duration');
             const trackId = container.getAttribute('data-id');
             const favBtn = container.querySelector('.fav-btn');
 
-            // Проверка избранного при загрузке
+            // Загрузка избранного
             if (localStorage.getItem(trackId) === 'active') {
                 favBtn.classList.add('active');
                 favBtn.innerText = "❤️ Избранное";
@@ -180,49 +155,59 @@
                     document.querySelectorAll('.play-pause-btn').forEach(el => el.innerText = "▶");
                     audio.play();
                     playBtn.innerText = "⏸";
+                    addToRecent(trackId); // Записываем в историю
                 } else {
                     audio.pause();
                     playBtn.innerText = "▶";
                 }
             });
 
-            audio.addEventListener('timeupdate', () => {
-                const percent = (audio.currentTime / audio.duration) * 100;
-                progressBar.style.width = percent + "%";
-                currentTxt.innerText = formatTime(audio.currentTime);
-            });
+            audio.ontimeupdate = () => {
+                progressBar.style.width = (audio.currentTime / audio.duration) * 100 + "%";
+            };
 
-            audio.addEventListener('loadedmetadata', () => {
-                durationTxt.innerText = formatTime(audio.duration);
-            });
-
-            progressArea.addEventListener('click', (e) => {
+            progressArea.onclick = (e) => {
                 audio.currentTime = (e.offsetX / progressArea.clientWidth) * audio.duration;
-            });
+            };
         });
 
-        function formatTime(seconds) {
-            let min = Math.floor(seconds / 60);
-            let sec = Math.floor(seconds % 60);
-            return `${min}:${sec < 10 ? '0' + sec : sec}`;
-        }
-
-        // 2. Логика сохранения в память
         function toggleFav(btn) {
-            const container = btn.closest('.player-container');
-            const trackId = container.getAttribute('data-id');
-            
+            const id = btn.closest('.player-container').getAttribute('data-id');
             btn.classList.toggle('active');
-            
             if (btn.classList.contains('active')) {
                 btn.innerText = "❤️ Избранное";
-                localStorage.setItem(trackId, 'active'); // Сохраняем
+                localStorage.setItem(id, 'active');
             } else {
                 btn.innerText = "❤ В избранное";
-                localStorage.removeItem(trackId); // Удаляем
+                localStorage.removeItem(id);
             }
+        }
+
+        // История прослушивания
+        function addToRecent(id) {
+            let recent = JSON.parse(localStorage.getItem(RECENT_KEY)) || [];
+            recent = recent.filter(item => item !== id); // Удаляем дубликат
+            recent.unshift(id); // Добавляем в начало
+            if (recent.length > 10) recent.pop(); // Храним только 10 последних
+            localStorage.setItem(RECENT_KEY, JSON.stringify(recent));
+        }
+
+        // Фильтрация
+        function filterTracks(type, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const recentList = JSON.parse(localStorage.getItem(RECENT_KEY)) || [];
+            
+            document.querySelectorAll('.player-container').forEach(card => {
+                const id = card.getAttribute('data-id');
+                card.classList.add('hidden');
+
+                if (type === 'all') card.classList.remove('hidden');
+                if (type === 'fav' && card.querySelector('.fav-btn').classList.contains('active')) card.classList.remove('hidden');
+                if (type === 'recent' && recentList.includes(id)) card.classList.remove('hidden');
+            });
         }
     </script>
 </body>
-    </html>
-    
+</html>
