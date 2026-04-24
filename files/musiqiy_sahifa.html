@@ -6,7 +6,7 @@
     <title>Musiqiy sahifa — Premium</title>
     <style>
         :root {
-            --primary-color: #3b82f6; /* Синий как у Alif */
+            --primary-color: #3b82f6;
             --bg-color: #f8fafc;
             --card-bg: #ffffff;
             --text-main: #1e293b;
@@ -28,7 +28,6 @@
             color: #0f172a;
         }
 
-        /* Сетка в стиле маркетплейса */
         .main-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -37,7 +36,6 @@
             margin: 0 auto;
         }
 
-        /* Карточка */
         .player-container {
             background: var(--card-bg);
             border-radius: 20px;
@@ -54,18 +52,9 @@
             border-color: var(--primary-color);
         }
 
-        .track-info h3 {
-            margin: 0;
-            font-size: 1.25rem;
-        }
+        .track-info h3 { margin: 0; font-size: 1.25rem; }
+        .track-info p { margin: 4px 0 20px 0; color: var(--text-secondary); font-size: 0.9rem; }
 
-        .track-info p {
-            margin: 4px 0 20px 0;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* Современный кастомный плеер */
         .custom-controls {
             background: #f1f5f9;
             padding: 15px;
@@ -73,12 +62,7 @@
             margin-bottom: 15px;
         }
 
-        .top-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 10px;
-        }
+        .top-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
 
         .play-pause-btn {
             background: var(--primary-color);
@@ -90,13 +74,7 @@
             cursor: pointer;
             font-size: 1.2rem;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-        }
-
-        .play-pause-btn:hover {
-            background: #2563eb;
+            align-items: center; justify-content: center;
         }
 
         .progress-area {
@@ -104,7 +82,6 @@
             height: 6px;
             background: #cbd5e1;
             border-radius: 10px;
-            position: relative;
             cursor: pointer;
         }
 
@@ -113,7 +90,6 @@
             width: 0%;
             background: var(--primary-color);
             border-radius: 10px;
-            position: relative;
         }
 
         .time-display {
@@ -121,10 +97,8 @@
             justify-content: space-between;
             font-size: 11px;
             color: var(--text-secondary);
-            font-weight: 600;
         }
 
-        /* Кнопка избранного */
         .fav-btn {
             width: 100%;
             background: transparent;
@@ -142,11 +116,6 @@
             border-color: #ef4444;
             color: #ef4444;
         }
-
-        .fav-btn:hover:not(.active) {
-            background: #f1f5f9;
-            border-color: #cbd5e1;
-        }
     </style>
 </head>
 <body>
@@ -154,78 +123,41 @@
     <h1>Musiqiy sahifa</h1>
 
     <div class="main-grid">
-        <div class="player-container">
+        <div class="player-container" data-id="track_1">
             <div class="track-info">
                 <h3>Fendi</h3>
                 <p>Rakhim</p>
             </div>
             <div class="custom-controls">
-                <audio class="audio-element">
-                    <source src="../mp3/Rakhim_-_Fendi.mp3" type="audio/mpeg">
-                </audio>
+                <audio class="audio-element"><source src="../mp3/Rakhim_-_Fendi.mp3" type="audio/mpeg"></audio>
                 <div class="top-row">
                     <button class="play-pause-btn">▶</button>
-                    <div class="progress-area">
-                        <div class="progress-bar"></div>
-                    </div>
+                    <div class="progress-area"><div class="progress-bar"></div></div>
                 </div>
-                <div class="time-display">
-                    <span class="current">0:00</span>
-                    <span class="duration">0:00</span>
-                </div>
+                <div class="time-display"><span class="current">0:00</span><span class="duration">0:00</span></div>
             </div>
             <button class="fav-btn" onclick="toggleFav(this)">❤ В избранное</button>
         </div>
 
-        <div class="player-container">
+        <div class="player-container" data-id="track_2">
             <div class="track-info">
                 <h3>Mortals (slowed)</h3>
                 <p>Warriyo</p>
             </div>
             <div class="custom-controls">
-                <audio class="audio-element">
-                    <source src="../mp3.2/Warriyo - Mortals (ft. Laura Brehm) (Slowed).mp3" type="audio/mpeg">
-                </audio>
+                <audio class="audio-element"><source src="../mp3.2/Warriyo - Mortals (ft. Laura Brehm) (Slowed).mp3" type="audio/mpeg"></audio>
                 <div class="top-row">
                     <button class="play-pause-btn">▶</button>
-                    <div class="progress-area">
-                        <div class="progress-bar"></div>
-                    </div>
+                    <div class="progress-area"><div class="progress-bar"></div></div>
                 </div>
-                <div class="time-display">
-                    <span class="current">0:00</span>
-                    <span class="duration">0:00</span>
-                </div>
-            </div>
-            <button class="fav-btn" onclick="toggleFav(this)">❤ В избранное</button>
-        </div>
-
-        <div class="player-container">
-            <div class="track-info">
-                <h3>Bass Da Da Da</h3>
-                <p>Nikola Ryback</p>
-            </div>
-            <div class="custom-controls">
-                <audio class="audio-element">
-                    <source src="../mp3.2/Nikola Ryback - Bass Da Da Da (Slowed).mp3" type="audio/mpeg">
-                </audio>
-                <div class="top-row">
-                    <button class="play-pause-btn">▶</button>
-                    <div class="progress-area">
-                        <div class="progress-bar"></div>
-                    </div>
-                </div>
-                <div class="time-display">
-                    <span class="current">0:00</span>
-                    <span class="duration">0:00</span>
-                </div>
+                <div class="time-display"><span class="current">0:00</span><span class="duration">0:00</span></div>
             </div>
             <button class="fav-btn" onclick="toggleFav(this)">❤ В избранное</button>
         </div>
     </div>
 
     <script>
-        // Логика работы всех плееров
+        // 1. Инициализация плееров
         document.querySelectorAll('.player-container').forEach(container => {
             const audio = container.querySelector('.audio-element');
             const playBtn = container.querySelector('.play-pause-btn');
@@ -233,14 +165,19 @@
             const progressArea = container.querySelector('.progress-area');
             const currentTxt = container.querySelector('.current');
             const durationTxt = container.querySelector('.duration');
+            const trackId = container.getAttribute('data-id');
+            const favBtn = container.querySelector('.fav-btn');
 
-            // Play/Pause
+            // Проверка избранного при загрузке
+            if (localStorage.getItem(trackId) === 'active') {
+                favBtn.classList.add('active');
+                favBtn.innerText = "❤️ Избранное";
+            }
+
             playBtn.addEventListener('click', () => {
                 if (audio.paused) {
-                    // Остановить другие плееры перед запуском этого
                     document.querySelectorAll('audio').forEach(el => el.pause());
                     document.querySelectorAll('.play-pause-btn').forEach(el => el.innerText = "▶");
-                    
                     audio.play();
                     playBtn.innerText = "⏸";
                 } else {
@@ -249,23 +186,18 @@
                 }
             });
 
-            // Обновление прогресса
             audio.addEventListener('timeupdate', () => {
                 const percent = (audio.currentTime / audio.duration) * 100;
                 progressBar.style.width = percent + "%";
                 currentTxt.innerText = formatTime(audio.currentTime);
             });
 
-            // Установка длительности
             audio.addEventListener('loadedmetadata', () => {
                 durationTxt.innerText = formatTime(audio.duration);
             });
 
-            // Перемотка кликом
             progressArea.addEventListener('click', (e) => {
-                const width = progressArea.clientWidth;
-                const clickX = e.offsetX;
-                audio.currentTime = (clickX / width) * audio.duration;
+                audio.currentTime = (e.offsetX / progressArea.clientWidth) * audio.duration;
             });
         });
 
@@ -275,9 +207,20 @@
             return `${min}:${sec < 10 ? '0' + sec : sec}`;
         }
 
+        // 2. Логика сохранения в память
         function toggleFav(btn) {
+            const container = btn.closest('.player-container');
+            const trackId = container.getAttribute('data-id');
+            
             btn.classList.toggle('active');
-            btn.innerText = btn.classList.contains('active') ? "❤️ Избранное" : "❤ В избранное";
+            
+            if (btn.classList.contains('active')) {
+                btn.innerText = "❤️ Избранное";
+                localStorage.setItem(trackId, 'active'); // Сохраняем
+            } else {
+                btn.innerText = "❤ В избранное";
+                localStorage.removeItem(trackId); // Удаляем
+            }
         }
     </script>
 </body>
