@@ -133,81 +133,103 @@
         </div>
 
     <script>
-        const RECENT_KEY = 'recent_played';
+    const RECENT_KEY = 'recent_played';
 
-        document.querySelectorAll('.player-container').forEach(container => {
-            const audio = container.querySelector('.audio-element');
-            const playBtn = container.querySelector('.play-pause-btn');
-            const progressBar = container.querySelector('.progress-bar');
-            const progressArea = container.querySelector('.progress-area');
-            const trackId = container.getAttribute('data-id');
-            const favBtn = container.querySelector('.fav-btn');
+    document.querySelectorAll('.player-container').forEach(container => {
+        const audio = container.querySelector('.audio-element');
+        const playBtn = container.querySelector('.play-pause-btn');
+        const progressBar = container.querySelector('.progress-bar');
+        const progressArea = container.querySelector('.progress-area');
+        const trackId = container.getAttribute('data-id');
+        const favBtn = container.querySelector('.fav-btn');
 
-            // Загрузка избранного
-            if (localStorage.getItem(trackId) === 'active') {
-                favBtn.classList.add('active');
-                favBtn.innerText = "❤️ Избранное";
+        // Загрузка избранного при старте
+        if (localStorage.getItem(trackId) === 'active') {
+            favBtn.classList.add('active');
+            favBtn.innerText = "❤️ Избранное";
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                document.querySelectorAll('audio').forEach(el => el.pause());
+                document.querySelectorAll('.play-pause-btn').forEach(el => el.innerText = "▶");
+                audio.play();
+                playBtn.innerText = "⏸";
+                
+                // ВАЖНО: Записываем в историю сразу при клике
+                addToRecent(trackId); 
+            } else {
+                audio.pause();
+                playBtn.innerText = "▶";
             }
-
-            playBtn.addEventListener('click', () => {
-                if (audio.paused) {
-                    document.querySelectorAll('audio').forEach(el => el.pause());
-                    document.querySelectorAll('.play-pause-btn').forEach(el => el.innerText = "▶");
-                    audio.play();
-                    playBtn.innerText = "⏸";
-                    addToRecent(trackId); // Записываем в историю
-                } else {
-                    audio.pause();
-                    playBtn.innerText = "▶";
-                }
-            });
-
-            audio.ontimeupdate = () => {
-                progressBar.style.width = (audio.currentTime / audio.duration) * 100 + "%";
-            };
-
-            progressArea.onclick = (e) => {
-                audio.currentTime = (e.offsetX / progressArea.clientWidth) * audio.duration;
-            };
         });
 
-        function toggleFav(btn) {
-            const id = btn.closest('.player-container').getAttribute('data-id');
-            btn.classList.toggle('active');
-            if (btn.classList.contains('active')) {
-                btn.innerText = "❤️ Избранное";
-                localStorage.setItem(id, 'active');
-            } else {
-                btn.innerText = "❤ В избранное";
-                localStorage.removeItem(id);
+        audio.ontimeupdate = () => {
+            if (audio.duration) {
+                progressBar.style.width = (audio.currentTime / audio.duration) * 100 + "%";
             }
+        };
+
+        progressArea.onclick = (e) => {
+            audio.currentTime = (e.offsetX / progressArea.clientWidth) * audio.duration;
+        };
+    });
+
+    function toggleFav(btn) {
+        const id = btn.closest('.player-container').getAttribute('data-id');
+        btn.classList.toggle('active');
+        if (btn.classList.contains('active')) {
+            btn.innerText = "❤️ Избранное";
+            localStorage.setItem(id, 'active');
+        } else {
+            btn.innerText = "❤ В избранное";
+            localStorage.removeItem(id);
         }
+    }
 
-        // История прослушивания
-        function addToRecent(id) {
-            let recent = JSON.parse(localStorage.getItem(RECENT_KEY)) || [];
-            recent = recent.filter(item => item !== id); // Удаляем дубликат
-            recent.unshift(id); // Добавляем в начало
-            if (recent.length > 10) recent.pop(); // Храним только 10 последних
-            localStorage.setItem(RECENT_KEY, JSON.stringify(recent));
-        }
+    function addToRecent(id) {
+        let recent = JSON.parse(localStorage.getItem(RECENT_KEY)) || [];
+        // Удаляем если уже был, чтобы поднять в начало
+        recent = recent.filter(item => item !== id); 
+        recent.unshift(id); 
+        if (recent.length > 12) recent.pop(); // Храним чуть больше
+        localStorage.setItem(RECENT_KEY, JSON.stringify(recent));
+        console.log("История обновлена:", recent);
+    }
 
-        // Фильтрация
-        function filterTracks(type, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+    function filterTracks(type, btn) {
+        // Управляем кнопками фильтров
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
 
-            const recentList = JSON.parse(localStorage.getItem(RECENT_KEY)) || [];
-            
-            document.querySelectorAll('.player-container').forEach(card => {
-                const id = card.getAttribute('data-id');
-                card.classList.add('hidden');
+        const grid = document.querySelector('.main-grid');
+        const cards = Array.from(document.querySelectorAll('.player-container'));
+        const recentList = JSON.parse(localStorage.getItem(RECENT_KEY)) || [];
+        
+        cards.forEach(card => {
+            const id = card.getAttribute('data-id');
+            card.classList.remove('hidden'); // Сначала всё показываем
+            card.style.order = "0"; // Сбрасываем порядок
 
-                if (type === 'all') card.classList.remove('hidden');
-                if (type === 'fav' && card.querySelector('.fav-btn').classList.contains('active')) card.classList.remove('hidden');
-                if (type === 'recent' && recentList.includes(id)) card.classList.remove('hidden');
-            });
-        }
+            if (type === 'fav') {
+                if (!card.querySelector('.fav-btn').classList.contains('active')) {
+                    card.classList.add('hidden');
+                }
+            } else if (type === 'recent') {
+                if (!recentList.includes(id)) {
+                    card.classList.add('hidden');
+                } else {
+                    // СОРТИРОВКА: ставим последние прослушанные в начало
+                    card.style.order = recentList.indexOf(id);
+                }
+            }
+        });
+        
+        // Включаем flex-order для сетки (нужно для работы style.order)
+        grid.style.display = (type === 'recent') ? 'flex' : 'grid';
+        grid.style.flexWrap = 'wrap';
+    }
     </script>
+    
 </body>
 </html>
