@@ -1,164 +1,157 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <style>
-               body{
-                   background:#111;
-                   min-height:100vh;
-                   display:flex;
-                   flex-direction:column;
-                   align-items:center;
-                   color:white; 
-                   font-family:'segoe ui',tahoma,geneva,verdana,sans-serif;
-               }
-               h1{
-                text-align: center;
-            } 
-              button{
-                padding: 10px;
-                margin: 10px;
-                  
-                border-radius: 80px;
-                background: #111;
-                
-                 color: #444;
-                 cursor: pointer;
-            }
-            a{
-                cursor: default;
-            }
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musiqiy sahifa</title>
+    <style>
+        /* Общий стиль в духе Alif Shop */
+        body {
+            background-color: #f8fafc; /* Светлый приятный фон */
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #334155;
+        }
 
-            /* Контейнер плеера */
-.player-container {
-    background: #222; /* Темный фон как на скрине */
-    border-radius: 15px;
-    padding: 15px;
-    margin-bottom: 20px;
-}
+        h1 {
+            text-align: center;
+            color: #0f172a;
+            font-weight: 700;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
 
-/* Стили кнопок */
-/* Измени эти строки в блоке .play-btn, .pause-btn */
-            .play-btn, .pause-btn{
-width: 45px;
-height: 45px;
-padding: 0;
-display: flex;
-align-items: center;
-justify-content: center;
-border-radius: 50%; /* Идеальный круг */
-            }
-.play-btn:hover { background: black; }
+        /* Сетка для карточек (Grid) */
+        .main-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-.pause-btn:hover { background: black; }
-            
+        /* Карточка трека */
+        .player-container {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-/* Полоска прогресса */
-.progress-bg {
-    flex-grow: 1;
-    height: 8px;
-    background: #1a1a1a;
-    border-radius: 4px;
-    margin-left: 10px;
-    position: relative;
-    align-self: center;
-}
+        .player-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: #3b82f6; /* Синий акцент как у Alif */
+        }
 
-.progress-fill {
-    width: 50%; /* Будет расти при проигрывании */
-    height: 100%;
-    background: #007aff; /* Синий цвет акцента */
-    border-radius: 4px;
-}
+        /* Иконка или обложка */
+        .track-icon {
+            background: #f1f5f9;
+            height: 140px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
 
-.controls-row {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-}
+        .player-container h3 {
+            margin: 10px 0 5px 0;
+            font-size: 1.1rem;
+            color: #1e293b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-                  .player-container p {
-                font-size:14px;
-                opacity:0.7;
-                margin-bottom:5px;
-            }
+        .player-container p {
+            margin: 0 0 15px 0;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
 
-    .player-container h3 {
-        margin-top: 0;
-        font-size: 18px;
-    }
+        /* Стиль плеера */
+        audio {
+            width: 100%;
+            height: 35px;
+            border-radius: 8px;
+            outline: none;
+        }
 
-    audio {
-        width: 100%;
-        height: 40px;
-        margin-top:10px;
-        opacity:0.8; /*чтобы он не слишком выделялся*/
-        filter:sepia(20%)  brightness(1.2); /* просто немного подсветим */
-    }
+        /* Кнопка "Слушать" (как в Alif Shop) */
+        .buy-button {
+            margin-top: 15px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
 
-        </style>
-    </head>
-    <body>
-        <h1>Musiqiy sahifa</h1>
+        .buy-button:hover {
+            background-color: #2563eb;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Musiqiy sahifa</h1>
+
+    <div class="main-grid">
 
         <div class="player-container">
-    <h3>🎵 Никотин</h3>
-    <p>Ганвест</p>
-    
-    <div class="custom-audio-wrapper">
-        <audio id="audio1">
-            <source src="../mp3.2/Ганвест - Никотин (Offical video).mp3">
-        </audio>
-        
-        <div class="controls-row">
-            <button onclick="document.getElementById('audio1').play()" class="play-btn">▶</button>
-            <button onclick="document.getElementById('audio1').pause()" class="pause-btn">||</button>
-              <div class="progress-bg" style="flex-grow: 1; height: 8px; background: rgba(255,255,255,0.1); margin-left: 10px; border-radius: 4px; position: relative;">
-    <div id="progress1" class="progress-fill" style="width: 50%; height: 100%; background: #007aff; border-radius: 4px;"></div>
-</div> 
+            <div class="track-icon">🎵</div>
+            <h3>Fendi</h3>
+            <p>Rakhim</p>
+            <audio controls>
+                <source src="../mp3/Rakhim_-_Fendi.mp3" type="audio/mpeg">
+                Ваш браузер не поддерживает аудио.
+            </audio>
+            <button class="buy-button">Добавить в избранное</button>
         </div>
+
+        <div class="player-container">
+            <div class="track-icon">🎧</div>
+            <h3>Mortals (slowed)</h3>
+            <p>Warriyo</p>
+            <audio controls>
+                <source src="../mp3.2/Warriyo - Mortals (ft. Laura Brehm) (Slowed).mp3" type="audio/mpeg">
+            </audio>
+            <button class="buy-button">Добавить в избранное</button>
         </div>
+
+        <div class="player-container">
+            <div class="track-icon">✨</div>
+            <h3>Mortals (funk)</h3>
+            <p>Исполнитель</p>
+            <audio controls>
+                <source src="../mp3.2/Warriyo - Mortals (Funk (Slowed)) (1).mp3" type="audio/mpeg">
+            </audio>
+            <button class="buy-button">Добавить в избранное</button>
+        </div>
+
+        <div class="player-container">
+            <div class="track-icon">🔥</div>
+            <h3>Bass Da Da Da</h3>
+            <p>Nikola Ryback</p>
+            <audio controls>
+                <source src="../mp3.2/Nikola Ryback - Bass Da Da Da (Slowed).mp3" type="audio/mpeg">
+            </audio>
+            <button class="buy-button">Добавить в избранное</button>
+        </div>
+
     </div>
-</div>
-          
 
-      
-            <br>
-      
-   <!--     <audio src="../mp3/Rakhim_-_Fendi.mp3" controls>Rakhim - Fendi</audio>
-        <br>
-        <audio src="../mp3.2/Warriyo - Mortals (ft. Laura Brehm) (Slowed).mp3" controls><h2>Mortals</h2></audio>
-          <br>
-        <audio src="../mp3.2/Warriyo - Mortals (Funk (Slowed)) (1).mp3" controls></audio>
-  <br>
-        <audio src="../mp3.2/Nikola Ryback - Bass Da Da Da (Slowed).mp3" controls></audio>
-  <br>
-        <audio src="../mp3.2/Bass da da da (Sentadão) Slowed - TikTok Version.mp3" controls></audio>
-  <br>
-        <audio src="../mp3.2/8SfaaSpjuY4.mp3" controls></audio>
-  <br>
-        <audio src="../mp3.2/Ганвест - Королева бара (Official Video).mp3" controls></audio>
-  <br>
-        <audio src="../mp3.2/Ганвест - Никотин (Offical video).mp3" controls></audio>
-  <br>
-        <audio src="../mp3.2/ODGO - Химия.mp3" controls></audio>-->
-
-   <br>
-   <a href="etaviramiz.html"><button>Back</button></a>
-    <a href="../index.html"><button>Home</button></a>
-
-        <script>
-    const audio = document.getElementById('audio1');
-    const progressBar = document.getElementById('progress1');
-
-    // Эта функция заставляет синюю полоску расти
-     audio.ontimeupdate = function() {
-    if (audio.duration) {
-        const percentage = (audio.currentTime / audio.duration) * 100;
-        progressBar.style.width = percentage + '%';
-    }
-};
-            };
-</script>
-   
-    </body>
+</body>
 </html>
